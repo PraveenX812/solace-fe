@@ -1,0 +1,659 @@
+
+/* ─── Section wrapper ─────────────────────────────────────────────────────── */
+.pb-section {
+  padding: 96px 0;
+  position: relative;
+}
+
+/* Soft ambient glow behind the plan builder */
+.pb-section::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 40%;
+  transform: translate(-50%, -50%);
+  width: 900px;
+  height: 600px;
+  background: radial-gradient(ellipse, rgba(139, 127, 232, 0.06) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.pb-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 28px;
+  position: relative;
+  z-index: 1;
+}
+
+.pb-header {
+  text-align: center;
+  margin-bottom: 48px;
+}
+
+.pb-eyebrow {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--color-peach);
+  margin-bottom: 14px;
+}
+
+.pb-title {
+  font-size: clamp(1.8rem, 4vw, 2.5rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-bottom: 12px;
+  background: linear-gradient(135deg, #ffffff 40%, var(--color-peri-light));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.pb-subtitle {
+  font-size: 1rem;
+  color: var(--color-muted);
+  line-height: 1.7;
+}
+
+/* ─── Plan selector cards ─────────────────────────────────────────────────── */
+.pb-plan-selector {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-bottom: 36px;
+}
+
+@media (max-width: 580px) {
+  .pb-plan-selector {
+    grid-template-columns: 1fr;
+  }
+}
+
+.pb-plan-card {
+  /* Reset button styles */
+  background: rgba(20, 19, 43, 0.7);
+  border: 1px solid rgba(139, 127, 232, 0.2);
+  border-radius: var(--radius-lg);
+  padding: 20px 20px 18px;
+  cursor: pointer;
+  text-align: left;
+  width: 100%;
+  position: relative;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.04) inset,
+    0 6px 20px rgba(0, 0, 0, 0.15);
+  transition:
+    border-color  var(--transition-base),
+    box-shadow    var(--transition-base),
+    transform     var(--transition-base);
+}
+
+.pb-plan-card:hover {
+  border-color: rgba(139, 127, 232, 0.38);
+  transform: translateY(-1px);
+}
+
+/* The gradient highlight on top of selected cards */
+.pb-plan-card[aria-pressed="true"] {
+  border-color: rgba(139, 127, 232, 0.6);
+  background: linear-gradient(
+    160deg,
+    rgba(139, 127, 232, 0.18) 0%,
+    rgba(139, 127, 232, 0.06) 60%,
+    rgba(20, 19, 43, 0.7) 100%
+  );
+  box-shadow:
+    0 1px 0 rgba(201, 182, 255, 0.12) inset,
+    0 -1px 0 rgba(0, 0, 0, 0.2) inset,
+    0 0 0 1px rgba(139, 127, 232, 0.25),
+    0 8px 28px rgba(0, 0, 0, 0.25),
+    0 0 20px rgba(139, 127, 232, 0.08);
+}
+
+.pb-plan-name {
+  font-family: var(--font-display);
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--color-faint);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 10px;
+}
+
+.pb-plan-card[aria-pressed="true"] .pb-plan-name {
+  color: var(--color-peri-light);
+}
+
+.pb-plan-price {
+  font-family: var(--font-display);
+  font-size: 1.65rem;
+  font-weight: 700;
+  color: var(--color-text);
+  font-variant-numeric: tabular-nums;
+}
+
+.pb-plan-period {
+  font-size: 0.82rem;
+  color: var(--color-muted);
+  font-weight: 400;
+  margin-left: 3px;
+}
+
+.pb-plan-badge {
+  display: inline-block;
+  margin-top: 10px;
+  font-family: var(--font-display);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  padding: 3px 10px;
+  border-radius: var(--radius-full);
+  background: rgba(125, 223, 172, 0.12);
+  color: var(--color-success);
+  border: 1px solid rgba(125, 223, 172, 0.28);
+}
+
+/* ─── Section labels ──────────────────────────────────────────────────────── */
+.pb-section-label {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-faint);
+  margin-bottom: 12px;
+}
+
+/* ─── Add-on cards ────────────────────────────────────────────────────────── */
+.pb-addons {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 28px;
+}
+
+.pb-addon-card {
+  background: rgba(20, 19, 43, 0.65);
+  border: 1px solid rgba(139, 127, 232, 0.18);
+  border-radius: var(--radius-md);
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transition:
+    border-color  var(--transition-base),
+    background    var(--transition-base);
+}
+
+.pb-addon-card.enabled {
+  border-color: rgba(139, 127, 232, 0.38);
+  background: rgba(20, 19, 43, 0.8);
+}
+
+.pb-addon-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.pb-addon-name {
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--color-text);
+  margin-bottom: 3px;
+}
+
+.pb-addon-desc {
+  font-size: 0.82rem;
+  color: var(--color-muted);
+  line-height: 1.4;
+}
+
+.pb-addon-price {
+  font-family: var(--font-display);
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: var(--color-peri-light);
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+}
+
+.pb-addon-period {
+  font-size: 0.78rem;
+  color: var(--color-faint);
+  font-weight: 400;
+}
+
+.pb-addon-price-sub {
+  font-size: 0.72rem;
+  color: var(--color-faint);
+  font-weight: 400;
+  display: block;
+  text-align: right;
+  margin-top: 2px;
+}
+
+/* ─── Toggle switch — premium feel ───────────────────────────────────────── */
+.pb-toggle {
+  position: relative;
+  width: 42px;
+  height: 24px;
+  flex-shrink: 0;
+  cursor: pointer;
+}
+
+.pb-toggle input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+  position: absolute;
+}
+
+.pb-toggle-track {
+  position: absolute;
+  inset: 0;
+  border-radius: var(--radius-full);
+  background: rgba(139, 127, 232, 0.12);
+  border: 1px solid rgba(139, 127, 232, 0.28);
+  cursor: pointer;
+  transition:
+    background     var(--transition-base),
+    border-color   var(--transition-base),
+    box-shadow     var(--transition-base);
+}
+
+.pb-toggle input:checked + .pb-toggle-track {
+  background: var(--color-peri);
+  border-color: var(--color-peri);
+  box-shadow: 0 0 10px rgba(139, 127, 232, 0.4);
+}
+
+.pb-toggle-thumb {
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  width: 14px;
+  height: 14px;
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 50%;
+  transition: transform var(--transition-base), background var(--transition-base);
+  pointer-events: none;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.pb-toggle input:checked ~ .pb-toggle-thumb {
+  transform: translateX(18px);
+  background: #fff;
+}
+
+/* ─── Stepper ─────────────────────────────────────────────────────────────── */
+.pb-stepper-wrap {
+  margin-top: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.pb-stepper-label {
+  font-size: 0.78rem;
+  color: var(--color-muted);
+}
+
+.pb-stepper {
+  display: flex;
+  align-items: center;
+  background: rgba(20, 19, 43, 0.9);
+  border: 1px solid rgba(139, 127, 232, 0.3);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+}
+
+.pb-stepper-btn {
+  background: none;
+  border: none;
+  color: var(--color-peri-light);
+  font-size: 1rem;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background var(--transition-fast);
+  line-height: 1;
+}
+
+.pb-stepper-btn:hover:not(:disabled) {
+  background: rgba(139, 127, 232, 0.15);
+}
+
+.pb-stepper-btn:disabled {
+  color: var(--color-faint);
+  cursor: not-allowed;
+}
+
+.pb-stepper-value {
+  font-family: var(--font-display);
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--color-text);
+  width: 28px;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+  border-left: 1px solid rgba(139, 127, 232, 0.2);
+  border-right: 1px solid rgba(139, 127, 232, 0.2);
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ─── Promo code ──────────────────────────────────────────────────────────── */
+.pb-promo {
+  margin-bottom: 28px;
+}
+
+.pb-promo-row {
+  display: flex;
+  gap: 10px;
+}
+
+.pb-promo-input {
+  flex: 1;
+  background: rgba(20, 19, 43, 0.7);
+  border: 1px solid rgba(139, 127, 232, 0.25);
+  border-radius: var(--radius-sm);
+  padding: 11px 16px;
+  color: var(--color-text);
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  outline: none;
+  backdrop-filter: blur(8px);
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.pb-promo-input::placeholder {
+  text-transform: none;
+  color: var(--color-faint);
+  letter-spacing: 0;
+}
+
+.pb-promo-input:focus {
+  border-color: var(--color-peri);
+  box-shadow: 0 0 0 3px rgba(139, 127, 232, 0.12);
+}
+
+.pb-promo-btn {
+  background: rgba(139, 127, 232, 0.12);
+  border: 1px solid rgba(139, 127, 232, 0.3);
+  border-radius: var(--radius-sm);
+  padding: 11px 20px;
+  color: var(--color-peri-light);
+  font-family: var(--font-display);
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition:
+    background    var(--transition-fast),
+    border-color  var(--transition-fast),
+    box-shadow    var(--transition-fast);
+  letter-spacing: 0.02em;
+}
+
+.pb-promo-btn:hover {
+  background: rgba(139, 127, 232, 0.22);
+  border-color: rgba(139, 127, 232, 0.55);
+  box-shadow: 0 0 0 3px rgba(139, 127, 232, 0.08);
+}
+
+.pb-promo-msg {
+  margin-top: 10px;
+  font-size: 0.83rem;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 12px;
+  border-radius: var(--radius-sm);
+}
+
+.pb-promo-msg.valid {
+  color: var(--color-success);
+  background: rgba(125, 223, 172, 0.07);
+  border: 1px solid rgba(125, 223, 172, 0.18);
+}
+
+.pb-promo-msg.invalid {
+  color: var(--color-danger);
+  background: rgba(255, 133, 133, 0.07);
+  border: 1px solid rgba(255, 133, 133, 0.18);
+}
+
+.pb-promo-clear {
+  background: none;
+  border: none;
+  color: var(--color-faint);
+  cursor: pointer;
+  font-size: 0.78rem;
+  padding: 0;
+  margin-left: auto;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.pb-promo-clear:hover { color: var(--color-muted); }
+
+/* ─── Price breakdown panel ───────────────────────────────────────────────── */
+.pb-breakdown {
+  background: rgba(14, 13, 28, 0.75);
+  border: 1px solid rgba(139, 127, 232, 0.28);
+  border-radius: var(--radius-lg);
+  padding: 28px;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow:
+    0 1px 0 rgba(201, 182, 255, 0.08) inset,
+    0 -1px 0 rgba(0, 0, 0, 0.25) inset,
+    0 20px 50px rgba(0, 0, 0, 0.3);
+}
+
+.pb-breakdown-lines {
+  list-style: none;
+  margin-bottom: 14px;
+}
+
+.pb-breakdown-line {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 8px 0;
+  font-size: 0.91rem;
+  border-bottom: 1px solid rgba(139, 127, 232, 0.1);
+  gap: 16px;
+}
+
+.pb-breakdown-line:last-child {
+  border-bottom: none;
+}
+
+.pb-breakdown-label {
+  color: var(--color-muted);
+}
+
+.pb-breakdown-amount {
+  font-family: var(--font-display);
+  font-weight: 600;
+  color: var(--color-text);
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Discount line styling */
+.pb-breakdown-line.discount .pb-breakdown-label {
+  color: var(--color-success);
+}
+
+.pb-breakdown-line.discount .pb-breakdown-amount {
+  color: var(--color-success);
+}
+
+/* Savings summary pill */
+.pb-savings-line {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 14px;
+  background: rgba(125, 223, 172, 0.07);
+  border: 1px solid rgba(125, 223, 172, 0.18);
+  border-radius: var(--radius-sm);
+  margin-bottom: 18px;
+  font-size: 0.87rem;
+  color: var(--color-success);
+  font-weight: 500;
+}
+
+/* Total */
+.pb-total-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding-top: 16px;
+  border-top: 1px solid rgba(139, 127, 232, 0.2);
+  margin-bottom: 6px;
+}
+
+.pb-total-label {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.pb-total-amount {
+  font-family: var(--font-display);
+  font-size: 1.8rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  /* Gradient on the price number */
+  background: linear-gradient(135deg, #fff 30%, var(--color-peri-light));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.pb-billing-label {
+  text-align: right;
+  font-size: 0.8rem;
+  color: var(--color-faint);
+  margin-bottom: 22px;
+}
+
+/* CTA button — the most visually prominent element */
+.pb-cta-btn {
+  display: block;
+  width: 100%;
+  padding: 15px;
+  background: linear-gradient(135deg, #ffb18a, var(--color-peach) 50%, #e8784f);
+  border: none;
+  border-radius: var(--radius-md);
+  color: #1a0a00;
+  font-family: var(--font-display);
+  font-size: 1.02rem;
+  font-weight: 700;
+  cursor: pointer;
+  text-align: center;
+  letter-spacing: 0.01em;
+  box-shadow: 0 4px 20px rgba(255, 158, 125, 0.35);
+  transition:
+    transform     var(--transition-fast),
+    box-shadow    var(--transition-fast),
+    opacity       var(--transition-fast);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Shimmer effect on the CTA button using a pseudo-element */
+.pb-cta-btn::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transition: left 0.5s ease;
+}
+
+.pb-cta-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 28px rgba(255, 158, 125, 0.5);
+}
+
+.pb-cta-btn:hover::after {
+  left: 150%; /* Shimmer sweeps across */
+}
+
+.pb-cta-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 12px rgba(255, 158, 125, 0.3);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   RESPONSIVE ADJUSTMENTS — PLAN BUILDER
+   ═══════════════════════════════════════════════════════════════════════════
+   md: 768px | sm: 640px | xs: 420px
+   ─────────────────────────────────────────────────────────────────────── */
+
+@media (max-width: 768px) {
+  .pb-section   { padding: 72px 0; }
+  .pb-container { padding: 0 20px; }
+  .pb-header    { margin-bottom: 40px; }
+  /* Enlarge stepper buttons for touch (44px minimum recommended target) */
+  .pb-stepper-btn   { width: 38px; height: 38px; font-size: 1.1rem; }
+  .pb-stepper-value { width: 36px; height: 38px; }
+}
+
+@media (max-width: 640px) {
+  .pb-section   { padding: 60px 0; }
+  .pb-container { padding: 0 16px; }
+  .pb-plan-card { padding: 16px; }
+  .pb-plan-price { font-size: 1.45rem; }
+  .pb-breakdown { padding: 20px; }
+}
+
+/* Promo row stacks at 540px to prevent cramped side-by-side layout */
+@media (max-width: 540px) {
+  .pb-promo-row { flex-direction: column; }
+  .pb-promo-btn { width: 100%; padding: 12px; }
+}
+
+/* Add-on price drops to second row at 460px so info isn't squeezed */
+@media (max-width: 460px) {
+  .pb-addon-card  { flex-wrap: wrap; align-items: flex-start; gap: 12px 16px; }
+  .pb-addon-price {
+    flex-basis: calc(100% - 58px);
+    margin-left: 58px;
+    text-align: left;
+  }
+  .pb-addon-price-sub { text-align: left; }
+}
+
+@media (max-width: 420px) {
+  .pb-section    { padding: 48px 0; }
+  .pb-container  { padding: 0 14px; }
+  .pb-plan-price { font-size: 1.3rem; }
+  .pb-breakdown  { padding: 16px; }
+  .pb-total-amount { font-size: 1.5rem; }
+  .pb-cta-btn    { padding: 16px; font-size: 1rem; }
+}

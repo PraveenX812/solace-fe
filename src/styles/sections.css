@@ -1,0 +1,774 @@
+
+/* ─── Common section wrapper ──────────────────────────────────────────────── */
+.section {
+  padding: 96px 0;
+  position: relative;
+}
+
+.section-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 28px;
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: 64px;
+}
+
+.section-eyebrow {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--color-peach);
+  margin-bottom: 14px;
+}
+
+.section-title {
+  font-size: clamp(1.9rem, 4.5vw, 2.8rem);
+  font-weight: 700;
+  margin-bottom: 14px;
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  /* Gradient text: white fades to periwinkle light */
+  background: linear-gradient(135deg, #ffffff 40%, var(--color-peri-light));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.section-subtitle {
+  font-size: 1.05rem;
+  color: var(--color-muted);
+  max-width: 540px;
+  margin: 0 auto;
+  line-height: 1.75;
+}
+
+/* ─── Shared button styles ────────────────────────────────────────────────── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 13px 28px;
+  border-radius: var(--radius-full);
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  text-decoration: none;
+  transition:
+    opacity     var(--transition-fast),
+    transform   var(--transition-fast),
+    box-shadow  var(--transition-base);
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #ffb18a, var(--color-peach) 60%, #e8784f);
+  color: #1a0a00;
+  box-shadow: 0 4px 20px rgba(255, 158, 125, 0.3);
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 28px rgba(255, 158, 125, 0.45);
+  opacity: 1 !important;
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 10px rgba(255, 158, 125, 0.25);
+}
+
+.btn-ghost {
+  background: rgba(139, 127, 232, 0.1);
+  color: var(--color-peri-light);
+  border: 1px solid rgba(139, 127, 232, 0.3);
+  backdrop-filter: blur(8px);
+}
+
+.btn-ghost:hover {
+  background: rgba(139, 127, 232, 0.18);
+  border-color: rgba(139, 127, 232, 0.55);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(139, 127, 232, 0.15);
+  opacity: 1 !important;
+}
+
+/* ─── HERO ────────────────────────────────────────────────────────────────── */
+/*
+ * Spec layout: single centered column.
+ *   eyebrow → h1 → subtitle → CTAs → orb (below, circular)
+ * The orb is NOT in a two-column grid with the text.
+ * It sits centered below the text block, displayed as a circle.
+ */
+.hero {
+  padding: 80px 0 60px;
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+}
+
+/* Ambient radial glow centred behind the orb */
+.hero::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  transform: translateX(-50%);
+  width: 600px;
+  height: 400px;
+  background: radial-gradient(ellipse, rgba(139, 127, 232, 0.18) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.hero-inner {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 0 28px;
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.hero-copy {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--font-display);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--color-peach);
+  margin-bottom: 22px;
+  padding: 5px 14px;
+  border: 1px solid rgba(255, 158, 125, 0.25);
+  border-radius: var(--radius-full);
+  background: rgba(255, 158, 125, 0.06);
+}
+
+.hero-headline {
+  font-size: clamp(2.6rem, 7vw, 4.2rem);
+  font-weight: 800;
+  line-height: 1.08;
+  letter-spacing: -0.03em;
+  margin-bottom: 20px;
+  background: linear-gradient(140deg, #ffffff 20%, rgba(201, 182, 255, 0.9) 65%, rgba(139, 127, 232, 0.85));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.hero-sub {
+  font-size: 1.1rem;
+  color: var(--color-muted);
+  line-height: 1.75;
+  margin-bottom: 36px;
+  max-width: 520px;
+}
+
+.hero-ctas {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 0;
+}
+
+/*
+ * The orb — spec exact:
+ *   width: min(280px, 70vw)
+ *   margin: 34px auto 0
+ *   border-radius: 50%        ← makes it circular
+ *   box-shadow: 0 0 80px rgba(139,127,232,.35)  ← purple glow
+ */
+.hero-orb {
+  width: min(300px, 70vw);
+  height: auto;
+  margin: 40px auto 0;
+  display: block;
+  border-radius: 50%;
+  box-shadow: 0 0 80px rgba(139, 127, 232, 0.35);
+}
+
+/* ─── TRUST STRIP ─────────────────────────────────────────────────────────── */
+.trust-strip {
+  padding: 44px 0;
+  border-top: 1px solid rgba(139, 127, 232, 0.12);
+  border-bottom: 1px solid rgba(139, 127, 232, 0.12);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(139, 127, 232, 0.04) 50%,
+    transparent
+  );
+  position: relative;
+  overflow: hidden;
+}
+
+/* Subtle horizontal shimmer line */
+.trust-strip::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(139, 127, 232, 0.4), transparent);
+}
+
+.trust-pills {
+  display: flex;
+  justify-content: center;
+  gap: 56px;
+  flex-wrap: wrap;
+}
+
+.stat-pill {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  min-width: 100px;
+  position: relative;
+}
+
+/* Separator between pills (not after last one) */
+.stat-pill:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  right: -28px;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 40px;
+  width: 1px;
+  background: rgba(139, 127, 232, 0.2);
+}
+
+.stat-number {
+  font-family: var(--font-display);
+  font-size: 2.1rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+  /* Gradient from white to periwinkle-light */
+  background: linear-gradient(135deg, #fff 30%, var(--color-peri-light));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.stat-label {
+  font-size: 0.8rem;
+  color: var(--color-muted);
+  text-align: center;
+  max-width: 100px;
+  line-height: 1.4;
+}
+
+/* ─── FEATURES ────────────────────────────────────────────────────────────── */
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px;
+}
+
+@media (max-width: 640px) {
+  .features-grid { grid-template-columns: 1fr; }
+}
+
+/*
+ * Glassmorphism card with gradient border on hover.
+ *
+ * How the gradient border works:
+ *   .feature-card is position: relative.
+ *   .feature-card::before is a gradient background positioned at inset: -1px
+ *   (1px outside the card's border-box) with the same border-radius.
+ *   It sits BEHIND the card content (z-index: 0 vs content at z-index: 1).
+ *   On hover, its opacity transitions from 0 → 1.
+ *
+ * The "glass" effect:
+ *   backdrop-filter: blur() blurs what's behind this element.
+ *   Without position: relative, backdrop-filter has no effect.
+ */
+.feature-card {
+  position: relative;
+  background: rgba(20, 19, 43, 0.7);
+  border: 1px solid rgba(139, 127, 232, 0.2);
+  border-radius: var(--radius-lg);
+  padding: 32px;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.05) inset,
+    0 -1px 0 rgba(0, 0, 0, 0.15) inset,
+    0 8px 32px rgba(0, 0, 0, 0.2);
+  transition:
+    border-color  var(--transition-base),
+    transform     var(--transition-base),
+    box-shadow    var(--transition-base);
+  z-index: 0;
+}
+
+.feature-card::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  background: linear-gradient(
+    135deg,
+    rgba(139, 127, 232, 0.5) 0%,
+    rgba(201, 182, 255, 0.15) 40%,
+    transparent 70%
+  );
+  opacity: 0;
+  transition: opacity var(--transition-base);
+  z-index: -1;
+}
+
+.feature-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(139, 127, 232, 0.4);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.08) inset,
+    0 -1px 0 rgba(0, 0, 0, 0.2) inset,
+    0 16px 48px rgba(0, 0, 0, 0.28),
+    0 0 0 1px rgba(139, 127, 232, 0.25);
+}
+
+.feature-card:hover::before {
+  opacity: 1;
+}
+
+.feature-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  background: rgba(139, 127, 232, 0.12);
+  border: 1px solid rgba(139, 127, 232, 0.22);
+  color: var(--color-peri-light);
+  margin-bottom: 18px;
+}
+
+.feature-name {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--color-text);
+  margin-bottom: 10px;
+  letter-spacing: -0.01em;
+}
+
+.feature-desc {
+  font-size: 0.91rem;
+  color: var(--color-muted);
+  line-height: 1.7;
+}
+
+/* ─── HOW IT WORKS ────────────────────────────────────────────────────────── */
+.steps-list {
+  display: flex;
+  flex-direction: column;
+  max-width: 640px;
+  margin: 0 auto;
+  position: relative;
+}
+
+/* Vertical connecting line */
+.steps-list::before {
+  content: '';
+  position: absolute;
+  left: 23px; /* Aligns with center of step number */
+  top: 40px;
+  bottom: 40px;
+  width: 1px;
+  background: linear-gradient(
+    180deg,
+    transparent,
+    rgba(139, 127, 232, 0.3) 20%,
+    rgba(139, 127, 232, 0.3) 80%,
+    transparent
+  );
+}
+
+.step {
+  display: flex;
+  gap: 28px;
+  align-items: flex-start;
+  padding: 32px 0;
+  position: relative;
+}
+
+.step:not(:last-child) {
+  border-bottom: 1px solid rgba(139, 127, 232, 0.1);
+}
+
+.step-number-wrap {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.step-number {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  background: rgba(139, 127, 232, 0.1);
+  border: 1px solid rgba(139, 127, 232, 0.25);
+  font-family: var(--font-display);
+  font-size: 0.9rem;
+  font-weight: 700;
+  /* Gradient text for step numbers */
+  background-clip: padding-box;
+  color: var(--color-peri-light);
+  position: relative;
+  z-index: 1;
+}
+
+.step-content { flex: 1; padding-top: 10px; }
+
+.step-title {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--color-text);
+  margin-bottom: 8px;
+  letter-spacing: -0.01em;
+}
+
+.step-desc {
+  font-size: 0.93rem;
+  color: var(--color-muted);
+  line-height: 1.7;
+}
+
+/* ─── TESTIMONIALS ────────────────────────────────────────────────────────── */
+.testimonials-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+}
+
+@media (max-width: 768px) {
+  .testimonials-grid { grid-template-columns: 1fr; }
+}
+
+.testimonial-card {
+  position: relative;
+  background: rgba(20, 19, 43, 0.7);
+  border: 1px solid rgba(139, 127, 232, 0.2);
+  border-radius: var(--radius-lg);
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.05) inset,
+    0 8px 32px rgba(0, 0, 0, 0.2);
+  transition: transform var(--transition-base), border-color var(--transition-base);
+}
+
+.testimonial-card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(139, 127, 232, 0.35);
+}
+
+/* Giant decorative quote mark */
+.testimonial-card::before {
+  content: '\201C';
+  position: absolute;
+  top: 16px;
+  left: 24px;
+  font-size: 5rem;
+  line-height: 1;
+  color: rgba(139, 127, 232, 0.12);
+  font-family: Georgia, serif;
+  pointer-events: none;
+}
+
+.testimonial-quote {
+  font-size: 0.97rem;
+  color: var(--color-text);
+  line-height: 1.75;
+  flex: 1;
+  position: relative;
+  z-index: 1;
+  /* Remove the CSS quote marks from Phase 4 — the ::before handles it */
+}
+
+.testimonial-quote::before,
+.testimonial-quote::after { content: ''; }
+
+/* Star rating */
+.testimonial-stars {
+  display: flex;
+  gap: 3px;
+  color: var(--color-peach);
+  font-size: 0.9rem;
+}
+
+.testimonial-author {
+  font-family: var(--font-display);
+  font-size: 0.83rem;
+  font-weight: 600;
+  color: var(--color-peri-light);
+}
+
+/* ─── FAQ ACCORDION ───────────────────────────────────────────────────────── */
+.faq-list {
+  max-width: 680px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.faq-item {
+  background: rgba(20, 19, 43, 0.65);
+  border: 1px solid rgba(139, 127, 232, 0.18);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transition:
+    border-color  var(--transition-base),
+    box-shadow    var(--transition-base);
+}
+
+.faq-item.is-open {
+  border-color: rgba(139, 127, 232, 0.4);
+  box-shadow: 0 0 0 1px rgba(139, 127, 232, 0.15), 0 8px 24px rgba(0, 0, 0, 0.2);
+}
+
+.faq-btn {
+  width: 100%;
+  background: none;
+  border: none;
+  padding: 20px 22px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  cursor: pointer;
+  text-align: left;
+  color: var(--color-text);
+  font-family: var(--font-body);
+  font-size: 0.97rem;
+  font-weight: 500;
+  line-height: 1.5;
+  transition: color var(--transition-fast);
+}
+
+.faq-btn:hover {
+  color: var(--color-peri-light);
+}
+
+.faq-icon {
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: rgba(139, 127, 232, 0.1);
+  border: 1px solid rgba(139, 127, 232, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-peri-light);
+  transition:
+    transform       var(--transition-base),
+    background      var(--transition-base),
+    border-color    var(--transition-base);
+}
+
+.faq-item.is-open .faq-icon {
+  transform: rotate(45deg);
+  background: rgba(139, 127, 232, 0.2);
+  border-color: rgba(139, 127, 232, 0.45);
+}
+
+.faq-answer-wrapper {
+  overflow: hidden;
+  transition: height var(--transition-slow) ease-in-out;
+}
+
+.faq-answer {
+  padding: 0 22px 20px;
+  font-size: 0.92rem;
+  color: var(--color-muted);
+  line-height: 1.75;
+  border-top: 1px solid rgba(139, 127, 232, 0.1);
+  padding-top: 16px;
+}
+
+/* ─── FOOTER CTA ──────────────────────────────────────────────────────────── */
+.footer-cta {
+  padding: 110px 0;
+  text-align: center;
+  border-top: 1px solid rgba(139, 127, 232, 0.12);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Dramatic radial glow for the footer */
+.footer-cta::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 800px;
+  height: 400px;
+  background: radial-gradient(ellipse, rgba(139, 127, 232, 0.08) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.footer-cta-container {
+  max-width: 620px;
+  margin: 0 auto;
+  padding: 0 28px;
+  position: relative;
+  z-index: 1;
+}
+
+.footer-cta-headline {
+  font-size: clamp(1.9rem, 4.5vw, 2.8rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  margin-bottom: 36px;
+  background: linear-gradient(135deg, #ffffff 40%, var(--color-peri-light));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.footer-note {
+  margin-top: 18px;
+  font-size: 0.82rem;
+  color: var(--color-faint);
+  letter-spacing: 0.02em;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   RESPONSIVE ADJUSTMENTS
+   ═══════════════════════════════════════════════════════════════════════════
+
+   Strategy: Desktop-first.
+   Base styles target ≥1100px. Media queries scale DOWN from there.
+
+   Breakpoints used:
+     md: max-width: 768px  → tablet / large phone landscape
+     sm: max-width: 640px  → phone
+     xs: max-width: 420px  → small phone
+   ─────────────────────────────────────────────────────────────────────── */
+
+/* ─── TABLET (≤ 768px) ──────────────────────────────────────────────────── */
+@media (max-width: 768px) {
+
+  /* Reduce vertical breathing room on tablet */
+  .section          { padding: 72px 0; }
+  .section-header   { margin-bottom: 44px; }
+  .section-container { padding: 0 20px; }
+
+  /* Hero: stack the two columns */
+  .hero { min-height: auto; padding: 72px 0 48px; }
+  .hero-container   { grid-template-columns: 1fr; text-align: center; gap: 36px; }
+  .hero-ctas        { justify-content: center; }
+  .hero-eyebrow     { margin: 0 auto 22px; }
+  .hero-sub         { max-width: 100%; margin: 0 auto 40px; }
+  .hero-orb-wrap    { order: -1; } /* Move orb above text on mobile */
+  .hero-orb         { width: min(320px, 75vw); }
+  .hero::before     { display: none; } /* Remove ambient blob, saves paint */
+
+  /* Trust strip: hide the vertical separators between pills */
+  .stat-pill::after { display: none; }
+  .trust-pills      { gap: 32px 40px; }
+
+  /* HowItWorks: hide the connecting line (it misaligns when padding changes) */
+  .steps-list::before { display: none; }
+  .step { gap: 20px; padding: 24px 0; }
+
+  /* Testimonials already go single column at 768px via existing rule */
+  .testimonial-card { padding: 24px; }
+
+  /* FAQ: tighter padding */
+  .faq-btn  { padding: 16px 18px; }
+  .faq-answer { padding: 0 18px 16px; padding-top: 14px; }
+}
+
+/* ─── PHONE (≤ 640px) ────────────────────────────────────────────────────── */
+@media (max-width: 640px) {
+
+  .section          { padding: 60px 0; }
+  .section-header   { margin-bottom: 36px; }
+  .section-container { padding: 0 16px; }
+
+  /* Section titles: clamp() already handles font-size.
+     Let's also reduce letter-spacing slightly on small screens
+     so wide characters don't clip. */
+  .section-title    { letter-spacing: -0.015em; }
+
+  /* Trust strip: switch to a 2×2 grid so it doesn't overflow */
+  .trust-pills {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 28px 12px;
+    justify-items: center;
+  }
+  .stat-number { font-size: 1.75rem; }
+  .trust-strip { padding: 36px 0; }
+
+  /* Features: already single-column via existing rule at 640px */
+  .feature-card { padding: 24px; }
+
+  /* Steps */
+  .step-number  { width: 40px; height: 40px; font-size: 0.82rem; }
+
+  /* Testimonials */
+  .testimonials-grid { gap: 12px; }
+
+  /* Footer */
+  .footer-cta { padding: 72px 0; }
+  .footer-cta-container { padding: 0 16px; }
+}
+
+/* ─── SMALL PHONE (≤ 420px) ─────────────────────────────────────────────── */
+@media (max-width: 420px) {
+
+  .section          { padding: 48px 0; }
+  .section-container { padding: 0 14px; }
+
+  /* Hero CTA buttons stack vertically on very small phones */
+  .hero-ctas { flex-direction: column; align-items: center; }
+  .hero-ctas .btn { width: 100%; justify-content: center; }
+
+  /* Trust strip: single column on very small screens */
+  .trust-pills { grid-template-columns: 1fr; }
+
+  /* Features: reduce card padding */
+  .feature-card { padding: 20px; }
+
+  /* Footer */
+  .footer-cta { padding: 56px 0; }
+  .footer-cta-headline { font-size: clamp(1.55rem, 7vw, 2rem); }
+}

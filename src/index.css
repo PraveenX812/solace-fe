@@ -1,0 +1,175 @@
+:root {
+  /* Backgrounds */
+  --color-night:      #0B0B1A;   /* Page background — deep navy/black */
+  --color-surface:    #14132B;   /* Card/panel background */
+  --color-surface-2:  #191736;   /* Slightly lighter surface for nesting */
+
+  /* Borders */
+  --color-border:       rgba(139, 127, 232, 0.18);  /* Subtle periwinkle border */
+  --color-border-strong: rgba(139, 127, 232, 0.34); /* Stronger border for accent cards */
+
+  /* Text */
+  --color-text:    #E7E5F2;   /* Primary body text */
+  --color-muted:   #9D9AB8;   /* Secondary/descriptive text */
+  --color-faint:   #6E6B8C;   /* Tertiary — captions, labels */
+
+  /* Brand accents */
+  --color-peri:        #8B7FE8;   /* Periwinkle — primary accent */
+  --color-peri-light:  #C9B6FF;   /* Light periwinkle — headings, highlights */
+  --color-peach:       #FF9E7D;   /* Peach — primary CTA, eyebrows */
+  --color-success:     #7DDFAC;   /* Green — savings, valid promo */
+  --color-warn:        #FFC56E;   /* Amber — warnings */
+  --color-danger:      #FF8585;   /* Red — errors, invalid promo */
+
+  /* Typography */
+  --font-display: 'Sora', system-ui, sans-serif;   /* Headings */
+  --font-body:    'Inter', system-ui, sans-serif;  /* Body text */
+
+  /* Spacing scale (8px base grid) */
+  --space-1:  4px;
+  --space-2:  8px;
+  --space-3:  12px;
+  --space-4:  16px;
+  --space-5:  20px;
+  --space-6:  24px;
+  --space-8:  32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-20: 80px;
+
+  /* Border radius */
+  --radius-sm:   8px;
+  --radius-md:   14px;
+  --radius-lg:   18px;
+  --radius-full: 9999px;  /* Fully rounded (pills, badges) */
+
+  /* Transitions */
+  --transition-fast:   150ms ease;
+  --transition-base:   250ms ease;
+  --transition-slow:   400ms ease;
+
+  /* Layout */
+  --max-width: 1100px;
+  --content-padding: 24px;   /* Horizontal padding on mobile */
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* ─── Root & Body ────────────────────────────────────────────────────────────*/
+html {
+  scroll-behavior: smooth;  /* Smooth scroll for anchor links (#hero, #features, etc.) */
+  font-size: 16px;          /* Base font size — all rem units are relative to this */
+}
+
+body {
+  background-color: var(--color-night);
+  /* Multi-stop background: radial glow top-right + darker fade at bottom.
+     fixed attachment keeps the gradient locked to the viewport. */
+  background-image:
+    radial-gradient(ellipse 900px 600px at 75% -5%, #1c1748 0%, transparent 70%),
+    radial-gradient(ellipse 600px 400px at 15% 80%, #0e1230 0%, transparent 60%);
+  background-attachment: fixed;
+
+  color: var(--color-text);
+  font-family: var(--font-body);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;  /* Sharper text on macOS */
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ─── Typography Defaults ────────────────────────────────────────────────────*/
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  color: var(--color-text);
+}
+
+p {
+  color: var(--color-muted);
+  line-height: 1.7;
+}
+
+a {
+  color: var(--color-peri-light);
+  text-decoration: none;
+}
+
+a:hover {
+  color: #fff;
+}
+
+/* ─── Layout Container ───────────────────────────────────────────────────────
+ * .container: a centered, max-width constrained wrapper.
+ * Used by every section to keep content aligned.
+ * ─────────────────────────────────────────────────────────────────────────── */
+.container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 var(--content-padding);
+}
+
+/* ─── Utility: Font variant for numbers ─────────────────────────────────────
+ * font-variant-numeric: tabular-nums prevents digits from shifting
+ * width as they change (e.g. the price counter going from ₹499 to ₹3,999).
+ * Without this, the text layout reflows on every digit change.
+ * ─────────────────────────────────────────────────────────────────────────── */
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+/* ─── Accessibility: Focus ring ──────────────────────────────────────────────
+ * Visible focus ring for keyboard users. We use :focus-visible (not :focus)
+ * so it only shows for keyboard navigation, not mouse clicks.
+ * ─────────────────────────────────────────────────────────────────────────── */
+:focus-visible {
+  outline: 2px solid var(--color-peri-light);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* ─── Accessibility: Reduced motion ─────────────────────────────────────────
+ * Users who have set "Reduce Motion" in their OS settings get this.
+ * We disable ALL transitions and animations, then re-enable only essentials.
+ * The orb SVG handles this internally — all our custom animations need it too.
+ * ─────────────────────────────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ─── Scrollbar styling (optional, cosmetic) ─────────────────────────────────*/
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-night);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-border-strong);
+  border-radius: var(--radius-full);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-peri);
+}
+
+/* ─── Text selection ─────────────────────────────────────────────────────────*/
+::selection {
+  background: rgba(139, 127, 232, 0.35);
+  color: #fff;
+}
+
+/* ─── Image rendering ────────────────────────────────────────────────────────*/
+img, svg {
+  display: block;
+  max-width: 100%;
+}
